@@ -4,7 +4,7 @@
 
 Just add `gem 'compass-growl'` in your Gemfile after compass or at the top of you compass config
 
-## Aurthor
+## Author
 
   Compass-growl is written by [Scott Davis](http://sdavis.info)
   
