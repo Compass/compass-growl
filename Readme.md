@@ -7,11 +7,11 @@
 For non rails users 
 
 1. run `gem install compass-growl`
-2. add `require compass-growl` to your config.rb file
+2. add `require "compass-growl"` to your config.rb file
 
 ### Rails
 
-Just add `gem 'compass-growl'` in your Gemfile after compass or at the top of you compass config
+Just add `gem "compass-growl"` in your Gemfile after compass or at the top of you compass config
 
 ## Author
 
