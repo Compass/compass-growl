@@ -6,7 +6,7 @@ Just add `gem 'compass-growl'` in your Gemfile after compass or at the top of yo
 
 ## Aurthor
 
-  Compass Themes is written by [Scott Davis](http://sdavis.info)
+  Compass-growl is written by [Scott Davis](http://sdavis.info)
   
   Scott is a Developer for the Space Telescope Science Institute in Baltimore, MD - [Hubble Space Telescope](http://hubblesite.org)
   
