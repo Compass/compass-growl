@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
   s.name = %q{compass-growl}
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.platform  = Gem::Platform::RUBY
 
   s.authors = ["Scott Davis"]
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "bundler", ">= 1.0.0"
   s.add_development_dependency "rspec", "~> 2.0.0"
   s.add_development_dependency "mocha"
-  #s.add_dependency 'compass', '~>  0.11.beta.2'
+  s.add_dependency 'compass', '~>  0.11.beta.3'
   s.add_dependency 'growl_notify'
   
 end
