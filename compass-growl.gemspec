@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.platform  = Gem::Platform::RUBY
 
   s.authors = ["Scott Davis"]
-  s.description = %q{Add growl notifications for compass using the growl gem and compass callback api}
+  s.description = %q{Add growl notifications for compass}
   s.summary = %q{Add Growl notifications to compass}
   s.email = %q{jetviper21@gmail.com}
   s.date = Date.today.to_s
