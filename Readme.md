@@ -1,6 +1,10 @@
 # Compass Growl plugin
 
+
+## Warning this installs the `sass 3.1.0.alpha` and the `compass 0.11.beta.4` this will not work in an version of compass < 0.11.beta.3!
+
 ## Usage
+
 
 ### Non Rails
 
