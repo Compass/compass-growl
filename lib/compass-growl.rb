@@ -1,5 +1,4 @@
 require "rubygems"
-require "bundler/setup"
 require 'growl_notify'
 
 module CompassGrowl
