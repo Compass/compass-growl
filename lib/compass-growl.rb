@@ -29,3 +29,23 @@ end
 Compass.configuration.on_stylesheet_error do |filename, error|
   GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet Error: #{File.basename(filename)} \n had the following error:\n #{error}")
 end
+
+
+#I hate doing this hacky shit lets hope this api is stablish
+if defined?(Sprockets)
+  module Sprockets
+    class BundledAsset
+      
+      alias :old_build_dependency_context_and_body :build_dependency_context_and_body
+      
+      def build_dependency_context_and_body
+        data = old_build_dependency_context_and_body
+        if pathname.to_s =~ /(scss|sass)/
+          GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet Rendered: #{File.basename(pathname)} ")
+        end
+        return data
+      end
+      
+    end
+  end    
+end
