@@ -13,22 +13,19 @@ end
 
 GrowlNotify.normal(:title => 'Compass', :description => "Compass Growl Loaded")
 
-module Compass
-  module Configuration
-    class Data
-      alias :old_run_callback :run_callback
-      def run_callback(event, *args)
-        case event
-          when :stylesheet_saved
-            GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet: #{File.basename(args.first)} saved")
-          when :sprite_saved
-            GrowlNotify.normal(:title => 'Compass', :description => "Sprite: #{File.basename(args.first)} saved")
-          when :stylesheet_error
-            GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet Error: #{File.basename(args.first)} \n had the following error:\n #{args.last}")
-        end
-        old_run_callback(event, *args)
-      end
-      
-    end
-  end
+
+Compass.configuration.on_sprite_saved do |filename|
+  GrowlNotify.normal(:title => 'Compass', :description => "Sprite: #{File.basename(filename)} saved")
+end
+
+Compass.configuration.on_stylesheet_saved do |filename|
+  GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet: #{File.basename(filename)} saved")
+end
+
+Compass.configuration.on_sprite_removed do |filename|
+  GrowlNotify.normal(:title => 'Compass', :description => "Sprite: #{File.basename(filename)} removed")
+end
+
+Compass.configuration.on_stylesheet_error do |filename, error|
+  GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet Error: #{File.basename(filename)} \n had the following error:\n #{error}")
 end
