@@ -1,34 +1,53 @@
 require "rubygems"
-require 'growl_notify'
+require 'compass'
+require 'ruby_gntp'
+
 
 module CompassGrowl
   ICON = File.join(File.expand_path('../', __FILE__), '..', 'assets', 'compass_icon.png')
-end
+  GROWL = GNTP.new
 
-GrowlNotify.config do |config|
-  config.notifications = config.default_notifications = ["compass"]
-  config.application_name = config.notifications.first
-  config.icon = CompassGrowl::ICON
-end
+  LOADED = "Compass Growl Loaded"
+  STYLESHEET_SAVED = "Stylesheet Saved"
+  STYLESHEET_ERROR = "Stylesheet Error"
+  SPRITE_SAVED = "Sprite Saved"
+  GROWL.register({:notifications => [{ :name => LOADED, :enabled => true },
+                  { :name => STYLESHEET_SAVED, :enabled => true },
+                  { :name => SPRITE_SAVED, :enabled => true },
+                  { :name => STYLESHEET_ERROR, :enabled => true }]
+  })
 
-GrowlNotify.normal(:title => 'Compass', :description => "Compass Growl Loaded")
-
-module Compass
-  module Configuration
-    class Data
-      alias :old_run_callback :run_callback
-      def run_callback(event, *args)
-        case event
-          when :stylesheet_saved
-            GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet: #{File.basename(args.first)} saved")
-          when :sprite_saved
-            GrowlNotify.normal(:title => 'Compass', :description => "Sprite: #{File.basename(args.first)} saved")
-          when :stylesheet_error
-            GrowlNotify.normal(:title => 'Compass', :description => "Stylesheet Error: #{File.basename(args.first)} \n had the following error:\n #{args.last}")
-        end
-        old_run_callback(event, *args)
-      end
-      
-    end
+  def growl(type, message)
+    GROWL.notify({
+    :name => type,
+    :title =>  "Compass",
+    :text => message,
+    :icon => "file://#{ICON}"
+    })
   end
+
+  def init
+    CompassGrowl.growl(STYLESHEET_ERROR, "Compass Growl has been initialized")
+
+    config = Compass.configuration
+
+    config.on_stylesheet_saved do |filename|
+      CompassGrowl.growl(STYLESHEET_SAVED, "Stylesheet: #{File.basename(filename)} saved")
+    end
+
+    config.on_sprite_saved do |filename|
+      CompassGrowl.growl(SPRITE_SAVED, "Sprite: #{File.basename(filename)} saved")
+    end
+
+    config.on_stylesheet_error do |filename, error|
+      CompassGrowl.growl(STYLESHEET_ERROR, "Stylesheet Error: #{File.basename(filename)} \n had the following error:\n #{error}")
+    end
+
+  end
+
+  extend self
+
 end
+
+CompassGrowl.init
+
